@@ -2,6 +2,7 @@
     <string name="app_name">V2ex With MVP</string>
     <string name="nav_header_str">我可是收到神的指示来到这个世界的</string>
 
+    <string name="err_network">网络出错了</string>
 
 
     <string name="menu_title_hot_news">热门</string>

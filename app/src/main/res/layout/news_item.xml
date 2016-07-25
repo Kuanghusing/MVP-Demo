@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/img_user_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             tools:src="@drawable/icon_test" />
 
         <TextView

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="menu_item_hot_news"
+        android:id="@+id/menu_item_hot_new"
         android:title="@string/menu_title_hot_news" />
     <item
-        android:id="menu_item_lastest_news"
+        android:id="@+id/menu_item_lastest_news"
         android:title="@string/menu_title_lastest_news" />
 
 </menu>

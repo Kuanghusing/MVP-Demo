@@ -1,4 +1,4 @@
-package com.kuahusg.v2exwithmvp.HotNews.Model;
+package com.kuahusg.v2exwithmvp.Model;
 
 /**
  * Created by kuahusg on 16-7-25.

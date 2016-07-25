@@ -1,4 +1,4 @@
-package com.kuahusg.v2exwithmvp.HotNews.View;
+package com.kuahusg.v2exwithmvp.View.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,21 +9,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.kuahusg.v2exwithmvp.HotNews.Presenter.IHotNewsPresenter;
+import com.kuahusg.v2exwithmvp.Presenter.BasePresenter;
 import com.kuahusg.v2exwithmvp.R;
 import com.kuahusg.v2exwithmvp.Util.StatusBarUtil;
 
 /**
  * Created by kuahusg on 16-7-25.
  */
-public abstract class BaseActivity<T extends IHotNewsPresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
     T presenter;
 
     public T getPresenter() {
         return presenter;
     }
 
-    public abstract void setPresenter();
+    public abstract T setPresenter();
 
     public abstract int setLayoutId();
 
@@ -32,14 +32,16 @@ public abstract class BaseActivity<T extends IHotNewsPresenter> extends AppCompa
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
 
-        setPresenter();
+        presenter = setPresenter();
         initStatusBar();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter = null;
+        if (presenter != null) {
+            presenter.onViewDestroy();
+        }
     }
 
 

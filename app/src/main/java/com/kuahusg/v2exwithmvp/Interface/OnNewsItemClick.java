@@ -1,4 +1,4 @@
-package com.kuahusg.v2exwithmvp.HotNews.Interface;
+package com.kuahusg.v2exwithmvp.Interface;
 
 /**
  * Created by kuahusg on 16-7-25.

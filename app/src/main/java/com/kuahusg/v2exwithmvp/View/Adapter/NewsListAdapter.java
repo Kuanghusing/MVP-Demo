@@ -1,4 +1,4 @@
-package com.kuahusg.v2exwithmvp.HotNews.View.Adapter;
+package com.kuahusg.v2exwithmvp.View.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.kuahusg.v2exwithmvp.HotNews.Interface.OnNewsItemClick;
-import com.kuahusg.v2exwithmvp.HotNews.Model.News;
+import com.kuahusg.v2exwithmvp.Interface.OnNewsItemClick;
+import com.kuahusg.v2exwithmvp.Model.News;
 import com.kuahusg.v2exwithmvp.R;
 
 import java.util.List;
@@ -46,9 +46,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.VH> {
     public void onBindViewHolder(VH holder, int position) {
         News news = newsList.get(position);
         holder.tvUserName.setText(news.getMember().getUsername());
-        holder.tvNode.setText(news.getNode().getName());
+        holder.tvNode.setText(news.getNode().getTitle());
         holder.tvTitle.setText(news.getTitle());
-        Glide.with(sContext).load("http:" + news.getMember().getAvatar_normal()).into(holder.imgUserIcon);
+        Glide.with(sContext).load("http:" + news.getMember().getAvatar_normal()).fitCenter().into(holder.imgUserIcon);
 
 
     }
