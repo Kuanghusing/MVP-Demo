@@ -64,11 +64,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(title);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(id);
+            if (id != -1)
+                actionBar.setHomeAsUpIndicator(id);
         }
         return toolbar;
     }

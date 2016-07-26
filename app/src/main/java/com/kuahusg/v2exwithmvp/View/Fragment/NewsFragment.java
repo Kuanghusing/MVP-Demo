@@ -7,14 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.bumptech.glide.request.ResourceCallback;
 import com.kuahusg.v2exwithmvp.Interface.OnNewsItemClick;
 import com.kuahusg.v2exwithmvp.Interface.RequestDataCallback;
 import com.kuahusg.v2exwithmvp.Model.News;
 import com.kuahusg.v2exwithmvp.Presenter.HotNewsFragPresenter;
 import com.kuahusg.v2exwithmvp.R;
+import com.kuahusg.v2exwithmvp.View.Activity.NewsDetailActivity;
 import com.kuahusg.v2exwithmvp.View.Adapter.NewsListAdapter;
 
 import java.util.ArrayList;
@@ -42,18 +41,26 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
             public void onClick(int position) {
                 if (newsList != null || newsList.size() == 0) {
                     // TODO: 16-7-25 start detail Activity
-                    Toast.makeText(getContext(), "you click " + position,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "you click " + position,Toast.LENGTH_SHORT).show();
+                    NewsDetailActivity.startActivity(getContext(), newsList.get(position));
                 }
             }
         });
         mRecyclerView.setAdapter(mAdapter);
 
-        if (newsList == null || newsList.size() == 0) {
-            getPresenter().requestNews();
-        }
+
 
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (newsList == null || newsList.size() == 0) {
+            init();
+            getPresenter().requestNews();
+        }
     }
 
     @Override

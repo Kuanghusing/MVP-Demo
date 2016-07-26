@@ -13,7 +13,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by kuahusg on 16-7-25.
  */
-public class HotNewsFragPresenter extends BasePresenter<NewsFragment> implements IHotNewsPresenter{
+public class HotNewsFragPresenter extends BasePresenter<NewsFragment> implements INewsPresenter {
 
     public HotNewsFragPresenter(NewsFragment view) {
 
@@ -33,6 +33,7 @@ public class HotNewsFragPresenter extends BasePresenter<NewsFragment> implements
 
                     @Override
                     public void onError(Throwable e) {
+
                         getView().err(e.getMessage());
                         e.printStackTrace();
 

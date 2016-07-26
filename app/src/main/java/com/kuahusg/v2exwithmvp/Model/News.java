@@ -5,24 +5,32 @@ package com.kuahusg.v2exwithmvp.Model;
  */
 
 
+import java.io.Serializable;
+
 /**
  * model: hot news
  */
-public class News {
+public class News implements Serializable {
     Member member;
     Node node;
     String id;
     String title;
     String content;
     String content_rendered;
+    String url;
 
-    public News(Member member, Node node, String id, String title, String content, String content_rendered) {
+    public News(Member member, Node node, String id, String title, String content, String content_rendered, String url) {
         this.member = member;
         this.node = node;
         this.id = id;
         this.title = title;
         this.content = content;
         this.content_rendered = content_rendered;
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public Member getMember() {
@@ -50,9 +58,7 @@ public class News {
     }
 
 
-
-
-    public static class Member {
+    public static class Member implements Serializable {
         String id;
         String username;
         String avatar_normal;
@@ -76,7 +82,7 @@ public class News {
         }
     }
 
-    public static class Node {
+    public static class Node implements Serializable {
         String id;
         String name;
         String title;
