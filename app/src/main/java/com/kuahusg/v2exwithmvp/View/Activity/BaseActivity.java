@@ -70,8 +70,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            if (id != -1)
-                actionBar.setHomeAsUpIndicator(id);
+/*            if (id != -1)
+                actionBar.setHomeAsUpIndicator(id);*/
         }
         return toolbar;
     }

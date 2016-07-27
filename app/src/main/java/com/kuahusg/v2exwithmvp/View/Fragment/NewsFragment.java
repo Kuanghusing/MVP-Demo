@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kuahusg.v2exwithmvp.Interface.AutoHideFabListener;
 import com.kuahusg.v2exwithmvp.Interface.OnNewsItemClick;
 import com.kuahusg.v2exwithmvp.Interface.RequestDataCallback;
 import com.kuahusg.v2exwithmvp.Model.News;
@@ -27,6 +29,7 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
     private NewsListAdapter mAdapter;
     private List<News> newsList;
     private RequestDataCallback callback;
+    private AutoHideFabListener autoHideFabListener;
 
 
     @Nullable
@@ -40,15 +43,11 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
             @Override
             public void onClick(int position) {
                 if (newsList != null || newsList.size() == 0) {
-                    // TODO: 16-7-25 start detail Activity
-//                    Toast.makeText(getContext(), "you click " + position,Toast.LENGTH_SHORT).show();
                     NewsDetailActivity.startActivity(getContext(), newsList.get(position));
                 }
             }
         });
         mRecyclerView.setAdapter(mAdapter);
-
-
 
 
         return view;
@@ -61,6 +60,21 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
             init();
             getPresenter().requestNews();
         }
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.v("Scroll", "dy:" + dy);
+                if (autoHideFabListener != null) {
+                    if (dy > 0) autoHideFabListener.hide();
+                    else autoHideFabListener.show();
+                }
+
+            }
+        });
+
+
     }
 
     @Override
@@ -76,7 +90,7 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
     @Override
     public void err(String message) {
         if (callback != null) {
-            callback.err(message);
+            callback.err(getString(R.string.err_network) + message);
         }
     }
 
@@ -87,6 +101,7 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
             callback.init();
         }
     }
+
 
     @Override
     public void loadFinish(List<News> newsList) {
@@ -100,5 +115,10 @@ public class NewsFragment extends BaseFragment<HotNewsFragPresenter> implements 
     public void requestDataCallback(RequestDataCallback callback) {
         this.callback = callback;
     }
+
+    public void setAutoHideFabListener(AutoHideFabListener autoHideFabListener) {
+        this.autoHideFabListener = autoHideFabListener;
+    }
+
 
 }

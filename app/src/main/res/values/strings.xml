@@ -2,6 +2,9 @@
     <string name="app_name">V2ex With MVP</string>
     <string name="nav_header_str">我可是收到神的指示来到这个世界的</string>
 
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
+
     <string name="err_network">网络出错了</string>
     <string name="load_finish">加载完毕</string>
 

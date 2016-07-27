@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+    <include layout="@layout/include_status" />
 
     <include layout="@layout/include_toolbar" />
 
@@ -13,12 +14,24 @@
         android:layout_margin="@dimen/news_item_margin">
 
         <include layout="@layout/news_item" />
-
     </android.support.v7.widget.CardView>
 
-    <WebView
-        android:id="@+id/wv_news_detail"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/between"></WebView>
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pb_loading_wv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <WebView
+            android:id="@+id/wv_news_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/between">
+
+        </WebView>
+    </FrameLayout>
 </LinearLayout>

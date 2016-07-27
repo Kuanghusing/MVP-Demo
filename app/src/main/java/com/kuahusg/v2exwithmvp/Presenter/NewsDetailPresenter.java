@@ -22,13 +22,17 @@ public class NewsDetailPresenter extends BasePresenter<NewsDetailActivity> imple
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                getView().init();
+                if (getView() != null) {
+                    getView().init();
+                }
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                getView().afterFinish();
+                if (getView() != null) {
+                    getView().afterFinish();
+                }
             }
         });
 
@@ -36,7 +40,7 @@ public class NewsDetailPresenter extends BasePresenter<NewsDetailActivity> imple
         try {
             webView.loadUrl(url);
         } catch (Exception e) {
-            getView().err(getView().getString(R.string.err_network));
+            if (getView() != null) getView().err(getView().getString(R.string.err_network));
 
             e.printStackTrace();
         }

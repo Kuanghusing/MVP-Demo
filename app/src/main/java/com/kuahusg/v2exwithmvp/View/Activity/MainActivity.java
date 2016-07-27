@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.kuahusg.v2exwithmvp.Interface.AutoHideFabListener;
 import com.kuahusg.v2exwithmvp.Interface.RequestDataCallback;
 import com.kuahusg.v2exwithmvp.Presenter.BasePresenter;
 import com.kuahusg.v2exwithmvp.R;
@@ -40,10 +42,11 @@ public class MainActivity extends BaseActivity<BasePresenter> implements View.On
     @Override
     protected void onResume() {
         super.onResume();
+//        swipeRefreshLayout.setRefreshing(true);
         newsFragment.requestDataCallback(new RequestDataCallback() {
             @Override
             public void init() {
-                Toast.makeText(MainActivity.this, "start refreshing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "start refreshing", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(true);
             }
 
@@ -56,10 +59,25 @@ public class MainActivity extends BaseActivity<BasePresenter> implements View.On
 
             @Override
             public void finish() {
-                Toast.makeText(MainActivity.this, "done", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "done", Toast.LENGTH_SHORT).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+
+        newsFragment.setAutoHideFabListener(new AutoHideFabListener() {
+            @Override
+            public void hide() {
+                fab.hide();
+            }
+
+            @Override
+            public void show() {
+                fab.show();
+            }
+        });
+
+
     }
 
     @Override
@@ -123,6 +141,14 @@ public class MainActivity extends BaseActivity<BasePresenter> implements View.On
         fab.setOnClickListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
         setupNavigationView(navigationView);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        toggle.syncState();
+        drawerLayout.addDrawerListener(toggle);
+
+
+
+
     }
 
     public void setFragment(Fragment fragment) {
@@ -138,6 +164,7 @@ public class MainActivity extends BaseActivity<BasePresenter> implements View.On
                 switch (id) {
                     // TODO: 16-7-25  
                 }
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return false;
             }
         });

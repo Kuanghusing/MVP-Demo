@@ -8,6 +8,7 @@ import java.util.List;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 
 /**
@@ -25,6 +26,13 @@ public class HotNewsFragPresenter extends BasePresenter<NewsFragment> implements
         RetrofitManager.getRetrofitManager().getV2exService().getHotNews()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        getView().init();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())    //getView().init() run on main Thread()
                 .subscribe(new Observer<List<News>>() {
                     @Override
                     public void onCompleted() {
@@ -34,14 +42,14 @@ public class HotNewsFragPresenter extends BasePresenter<NewsFragment> implements
                     @Override
                     public void onError(Throwable e) {
 
-                        getView().err(e.getMessage());
+                        if (getView() != null) getView().err(e.getMessage());
                         e.printStackTrace();
 
                     }
 
                     @Override
                     public void onNext(List<News> newses) {
-                        getView().loadFinish(newses);
+                        if (getView() != null) getView().loadFinish(newses);
 
                     }
                 });
